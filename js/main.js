@@ -233,5 +233,12 @@ slideshowContainer.addEventListener('mouseup', (e) => {
 nextButton.addEventListener('click', () => slideHandler('left'));
 previousButton.addEventListener('click', () => slideHandler('right'));
 
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight') {
+        slideHandler('left');
+    } else if (e.key === 'ArrowLeft') {
+        slideHandler('right');
+    }
+});
 
 updateButtons();
