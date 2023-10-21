@@ -102,6 +102,11 @@ const phrasesArray = [
     "SKÅL!"
 ];
 
+const colorsArray = [
+    '#FFADAD', '#FFD6A5', '#FDFFB6', '#CAFFBF', '#9BF6FF',
+    '#A0C4FF', '#BDB2FF', '#FFC6FF', '#FFAFCC', '#FCE38A'
+    
+];
 
 const slideshowContainer = document.querySelector('.slideshow-container');
 const previousButton = document.getElementById('previousButton');
@@ -113,6 +118,7 @@ phrasesArray.forEach((text, index) => {
     const slide = document.createElement('div');
     slide.classList.add('text-slide');
     slide.textContent = text;
+    // The modulus operator ensures we cycle through the colors if there are more slides than colors
     if (index === 0) slide.classList.add('active-slide');
     slideshowContainer.appendChild(slide);
 });
@@ -129,6 +135,7 @@ function slideHandler(direction) {
             activeSlide.classList.remove('active-slide', 'move-out-left');
             nextSlide.classList.remove('from-right');
             nextSlide.classList.add('active-slide');
+            document.body.style.backgroundColor = colorsArray[phrasesArray.indexOf(nextSlide.textContent) % colorsArray.length];
         }, 200); // Match this with the transition time in CSS
     } else {
         let prevSlide = activeSlide.previousElementSibling || slideshowContainer.lastChild;
@@ -139,9 +146,11 @@ function slideHandler(direction) {
             activeSlide.classList.remove('active-slide', 'move-out-right');
             prevSlide.classList.remove('from-left');
             prevSlide.classList.add('active-slide');
+            document.body.style.backgroundColor = colorsArray[phrasesArray.indexOf(prevSlide.textContent) % colorsArray.length];
         }, 200); // Match this with the transition time in CSS
     }
 }
+
 
 
 // Swipe functionality for touch devices
