@@ -42,7 +42,7 @@ The MVP for this project would be a functioning website that allows users to swi
     
 ## Demo
 
-You can see a live demo of the application at: [100 Questions](https://hundred-questions.netlify.app) 
+You can see a live demo of the application at: [100 Questions](https://100sporsmal.netlify.app) 
 
 
 
