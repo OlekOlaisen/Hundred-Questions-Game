@@ -129,7 +129,7 @@ function slideHandler(direction) {
             activeSlide.classList.remove('active-slide', 'move-out-left');
             nextSlide.classList.remove('from-right');
             nextSlide.classList.add('active-slide');
-        }, 500); // Match this with the transition time in CSS
+        }, 200); // Match this with the transition time in CSS
     } else {
         let prevSlide = activeSlide.previousElementSibling || slideshowContainer.lastChild;
         prevSlide.classList.add('from-left'); // New class for the starting position of the previous slide
