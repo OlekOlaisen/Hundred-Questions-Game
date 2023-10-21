@@ -1,114 +1,115 @@
-const slideshowContainer = document.querySelector('.slideshow-container');
-const previousButton = document.getElementById('previousButton');
-const nextButton = document.getElementById('nextButton');
-
-const textArray = [
-    "er morsomst",
-    "tror den selv er morsomst",
-    "har kommet flest ganger",
-    "har mest kjendisfaktor",
-    "du får de fineste barna med",
-    "har den sprekeste outfiten",
-    "har vært ute flest vinternetter",
-    "kan fakta om alt",
-    "er deiligst i rommet",
+const phrasesArray = [
+    "Er morsomst",
+    "Tror den selv er morsomst",
+    "Har kommet flest ganger",
+    "Har mest kjendisfaktor",
+    "Du får de fineste barna med",
+    "Har den sprekeste outfiten",
+    "Har vært ute flest vinternetter",
+    "Kan fakta om alt",
+    "Er deiligst i rommet",
     "SKÅL!",
-    "har hatt sex med den yngste personen",
-    "kommer raskest",
-    "har de største føttene",
-    "blir den beste forelderen",
-    "den du ville vært på en øde øy med",
-    "er den beste kysseren",
-    "har hatt sex med flest nasjonaliteter",
-    "liker å suge kuk",
-    "har de sykeste fyllahistoriene",
+    "Har hatt sex med den yngste personen",
+    "Kommer raskest",
+    "Har de største føttene",
+    "Blir den beste forelderen",
+    "Den du ville vært på en øde øy med",
+    "Er den beste kysseren",
+    "Har hatt sex med flest nasjonaliteter",
+    "Liker å suge kuk",
+    "Har de sykeste fyllahistoriene",
     "SKÅL!",
-    "har best musikksmak",
-    "tar med seg noen hjem i kveld",
-    "blir fullest i kveld",
-    "har sjel som en 80 år gammel dame",
-    "hvem har pult flest",
-    "er mest fornøyd med eget utseende",
-    "lukter best",
-    "er mest sporty",
-    "har de fineste leggene",
+    "Har best musikksmak",
+    "Tar med seg noen hjem i kveld",
+    "Blir fullest i kveld",
+    "Har sjel som en 80 år gammel dame",
+    "Hvem har pult flest",
+    "Er mest fornøyd med eget utseende",
+    "Lukter best",
+    "Er mest sporty",
+    "Har de fineste leggene",
     "SKÅL!",
-    "tar seg mest på sine egne pupper",
-    "runker mest",
-    "er flinkest til å suge",
-    "slipper de verste fisene",
-    "er mest fotogen",
-    "er villest i senga",
-    "ligner mest på en modell",
-    "oftest blueballer gutter",
-    "fingrer mest",
+    "Tar seg mest på sine egne pupper",
+    "Runker mest",
+    "Er flinkest til å suge",
+    "Slipper de verste fisene",
+    "Er mest fotogen",
+    "Er villest i senga",
+    "Ligner mest på en modell",
+    "Oftest blueballer gutter",
+    "Fingrer mest",
     "SKÅL!",
-    "har høyest kjendisfaktor",
-    "har de fineste leppene",
-    "googler seg selv oftest",
-    "ligner mest på en taco",
-    "har opplevd de kleineste tingene på kjærlighetsfronten",
-    "har de sykeste lydene i senga",
-    "har den kuleste klesstilen",
-    "alltid havner alene på byen",
-    "har brukt fake-id",
+    "Har høyest kjendisfaktor",
+    "Har de fineste leppene",
+    "Googler seg selv oftest",
+    "Ligner mest på en taco",
+    "Har opplevd de kleineste tingene på kjærlighetsfronten",
+    "Har de sykeste lydene i senga",
+    "Har den kuleste klesstilen",
+    "Alltid havner alene på byen",
+    "Har brukt fake-id",
     "SKÅL!",
-    "har størst lommebok",
-    "har shavet og er forberedt på alt",
-    "er mest nerd",
-    "du kunne slikket fra topp til tå",
-    "er mest avhengig av sosiale medier",
-    "har knust flest iphoner",
-    "har de mest spennende brystene",
-    "har de fineste formene",
-    "får kjæreste i år",
+    "Har størst lommebok",
+    "Har shavet og er forberedt på alt",
+    "Er mest nerd",
+    "Du kunne slikket fra topp til tå",
+    "Er mest avhengig av sosiale medier",
+    "Har knust flest iphoner",
+    "Har de mest spennende brystene",
+    "Har de fineste formene",
+    "Får kjæreste i år",
     "SKÅL!",
-    "helst kunne vært med på PH",
-    "er best til å få folk til å åpne seg",
-    "har penest øyne",
-    "ser mest på porno",
-    "har hatt sex med noen i dette rommet",
-    "du har et godt øye til",
-    "har hatt sex med flest eldre",
-    "den som har utført HLR",
-    "spyr i kveld",
+    "Helst kunne vært med på PH",
+    "Er best til å få folk til å åpne seg",
+    "Har penest øyne",
+    "Ser mest på porno",
+    "Har hatt sex med noen i dette rommet",
+    "Du har et godt øye til",
+    "Har hatt sex med flest eldre",
+    "Den som har utført HLR",
+    "Spyr i kveld",
     "SKÅL!",
-    "holder ut lengst i senga",
-    "synger finest",
-    "synger jævligst",
-    "tar meg seg noen hjem i kveld",
-    "har den sykeste latteren",
-    "gir best strippeshow",
-    "har hatt trekant",
-    "har de rikeste foreldrene",
-    "slutter på studiet",
+    "Holder ut lengst i senga",
+    "Synger finest",
+    "Synger jævligst",
+    "Tar meg seg noen hjem i kveld",
+    "Har den sykeste latteren",
+    "Gir best strippeshow",
+    "Har hatt trekant",
+    "Har de rikeste foreldrene",
+    "Slutter på studiet",
     "SKÅL!",
-    "er den minst kresne på sexpartnere",
-    "er flinkest på instumenter",
-    "gir mest til veldedighet",
-    "har hatt flest jobber",
-    "har blitt pumpa",
-    "er den mest kresne på sexpartnere",
-    "sprer mest glede",
-    "ligner mest på ei høne",
-    "rir best (tolk det som du vil)",
+    "Er den minst kresne på sexpartnere",
+    "Er flinkest på instumenter",
+    "Gir mest til veldedighet",
+    "Har hatt flest jobber",
+    "Har blitt pumpa",
+    "Er den mest kresne på sexpartnere",
+    "Sprer mest glede",
+    "Ligner mest på ei høne",
+    "Rir best (tolk det som du vil)",
     "SKÅL!",
-    "har hatt kjønnssykdommer",
-    "er en svettgamer",
-    "har hatt flest sexpartnere",
-    "juksa mest på skolen",
-    "tror på spøkelser",
-    "har hatt sex i et telt",
-    "er flink i mest ting",
-    "lukter best",
-    "bruker lengst tid på do",
-    "skal ta bonski med deg",
+    "Har hatt kjønnssykdommer",
+    "Er en svettgamer",
+    "Har hatt flest sexpartnere",
+    "Juksa mest på skolen",
+    "Tror på spøkelser",
+    "Har hatt sex i et telt",
+    "Er flink i mest ting",
+    "Lukter best",
+    "Bruker lengst tid på do",
+    "Skal ta bonski med deg",
     "SKÅL!"
 ];
 
 
-// Create slides
-textArray.forEach((text, index) => {
+const slideshowContainer = document.querySelector('.slideshow-container');
+const previousButton = document.getElementById('previousButton');
+const nextButton = document.getElementById('nextButton');
+
+
+
+phrasesArray.forEach((text, index) => {
     const slide = document.createElement('div');
     slide.classList.add('text-slide');
     slide.textContent = text;
@@ -116,24 +117,32 @@ textArray.forEach((text, index) => {
     slideshowContainer.appendChild(slide);
 });
 
-let startX;
-
 function slideHandler(direction) {
     let activeSlide = document.querySelector('.active-slide');
+    
     if (direction === 'left') {
-        let nextSlide = activeSlide.nextElementSibling;
-        if (nextSlide && nextSlide.classList.contains('text-slide')) {
-            activeSlide.classList.remove('active-slide');
+        let nextSlide = activeSlide.nextElementSibling || slideshowContainer.firstChild;
+        nextSlide.classList.add('from-right'); // New class for the starting position of the next slide
+        activeSlide.classList.add('move-out-left'); // Move out to the left
+        
+        setTimeout(() => {
+            activeSlide.classList.remove('active-slide', 'move-out-left');
+            nextSlide.classList.remove('from-right');
             nextSlide.classList.add('active-slide');
-        }
-    } else if (direction === 'right') {
-        let prevSlide = activeSlide.previousElementSibling;
-        if (prevSlide && prevSlide.classList.contains('text-slide')) {
-            activeSlide.classList.remove('active-slide');
+        }, 500); // Match this with the transition time in CSS
+    } else {
+        let prevSlide = activeSlide.previousElementSibling || slideshowContainer.lastChild;
+        prevSlide.classList.add('from-left'); // New class for the starting position of the previous slide
+        activeSlide.classList.add('move-out-right'); // Move out to the right
+        
+        setTimeout(() => {
+            activeSlide.classList.remove('active-slide', 'move-out-right');
+            prevSlide.classList.remove('from-left');
             prevSlide.classList.add('active-slide');
-        }
+        }, 200); // Match this with the transition time in CSS
     }
 }
+
 
 // Swipe functionality for touch devices
 slideshowContainer.addEventListener('touchstart', (e) => {

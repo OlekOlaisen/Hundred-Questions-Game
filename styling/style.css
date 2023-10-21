@@ -5,39 +5,65 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100dvh;
+    height: 100vh;
     background-color: #f4f4f4;
 }
 
 .slideshow-container {
-    width: 100dvw;
-	 height: 100dvh;
+    width: 100vw;
+    height: 100vh;
     background: #fff;
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     position: relative;
-	 display: flex;
-	 flex-flow: row;
-	 justify-content: center;
-	 align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.slideshow-container .text-slide {
-    display: none;
+.text-slide {
+    position: absolute;
+    width: 100%; /* Ensuring that the slide takes the full width of the container */
     text-align: center;
+    transition: transform 0.5s, opacity 0.2s; /* Adjust the transition duration if necessary */
+    transform: translateX(0);
+    opacity: 0;
 }
 
-.slideshow-container .active-slide {
-    display: block;
+.active-slide {
+    opacity: 1;
+    z-index: 1;
 }
 
-#previousButton {
-	position: absolute;
-	left: 0;
+#previousButton, #nextButton {
+    position: absolute;
+    font-size: 2rem;
+    cursor: pointer;
+    z-index: 2;
+    top: 50%; /* Centering the buttons vertically */
+    transform: translateY(-50%); /* Ensuring the buttons are perfectly centered */
 }
 
-#nextButton {
-	position: absolute;
-	right: 0;
+#previousButton { left: 10px; }
+#nextButton { right: 10px; }
+
+/* Handling the starting position of the slides */
+.from-left {
+    transform: translateX(-100%);
+}
+
+.from-right {
+    transform: translateX(100%);
+}
+
+/* Handling the moving out effects */
+.move-out-left {
+    transform: translateX(-100%);
+    opacity: 0;
+}
+
+.move-out-right {
+    transform: translateX(100%);
+    opacity: 0;
 }
