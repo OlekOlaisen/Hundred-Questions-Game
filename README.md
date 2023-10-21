@@ -22,6 +22,7 @@ The application has the following features:
 - Slideshow
 - Previous and Next button
 - Swipe left or right
+- Press right or left arrow on desktop to switch slide
 - Restricted swiping and clicking past the first or last question
 - The background changes color on each question
  ```
