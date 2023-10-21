@@ -6,7 +6,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    
+    background-color: #ff2727;
 }
 
 .slideshow-container {
@@ -29,7 +29,10 @@ body {
     transition: transform 0.5s, opacity 0.2s; /* Adjust the transition duration if necessary */
     transform: translateX(0);
     opacity: 0;
-	 background-color: transparent;
+	 font-size: 1.5rem;
+	 color: white;
+	 font-weight: bold;
+	 text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
 }
 
 .active-slide {
@@ -45,6 +48,8 @@ body {
     z-index: 2;
     top: 50%; /* Centering the buttons vertically */
     transform: translateY(-50%); /* Ensuring the buttons are perfectly centered */
+	 color: white;
+	 text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
 }
 
 #previousButton { left: 10px; }
@@ -69,3 +74,10 @@ body {
     transform: translateX(100%);
     opacity: 0;
 }
+
+
+.game-container {
+	display: flex;
+	flex-flow: column;
+}
+

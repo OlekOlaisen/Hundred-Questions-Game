@@ -103,9 +103,16 @@ const phrasesArray = [
 ];
 
 const colorsArray = [
-    '#FFADAD', '#FFD6A5', '#FDFFB6', '#CAFFBF', '#9BF6FF',
-    '#A0C4FF', '#BDB2FF', '#FFC6FF', '#FFAFCC', '#FCE38A'
-    
+    '#ff2727', // Strong Red
+    '#33FF57', // Vibrant Green
+    '#3357FF', // Bright Blue
+    '#FF33D1', // Pink
+    '#FFD133', // Golden Yellow
+    '#33FFF3', // Aqua
+    '#8A33FF', // Purple
+    '#FF8A33', // Orange
+    '#33FF8A', // Lime Green
+    '#5833FF'  // Indigo
 ];
 
 const slideshowContainer = document.querySelector('.slideshow-container');
@@ -123,8 +130,26 @@ phrasesArray.forEach((text, index) => {
     slideshowContainer.appendChild(slide);
 });
 
+
+function updateButtons() {
+    let activeSlide = document.querySelector('.active-slide');
+    let activeIndex = Array.from(slideshowContainer.children).indexOf(activeSlide);
+
+    // If on the first slide, hide the previous button. Otherwise, show it.
+    if (activeIndex === 0) {
+        previousButton.style.display = 'none';
+    } else {
+        previousButton.style.display = 'block';
+    }
+}
+
 function slideHandler(direction) {
     let activeSlide = document.querySelector('.active-slide');
+    
+    // Prevent going back from the first slide
+    if (activeSlide.textContent === phrasesArray[0] && direction === 'right') {
+        return;
+    }
     
     if (direction === 'left') {
         let nextSlide = activeSlide.nextElementSibling || slideshowContainer.firstChild;
@@ -149,7 +174,11 @@ function slideHandler(direction) {
             document.body.style.backgroundColor = colorsArray[phrasesArray.indexOf(prevSlide.textContent) % colorsArray.length];
         }, 200); // Match this with the transition time in CSS
     }
+
+    // Update the visibility of the buttons at the end of the function
+    updateButtons();
 }
+
 
 
 
@@ -181,3 +210,6 @@ slideshowContainer.addEventListener('mouseup', (e) => {
 // Button functionality
 nextButton.addEventListener('click', () => slideHandler('left'));
 previousButton.addEventListener('click', () => slideHandler('right'));
+
+
+updateButtons();
