@@ -22,8 +22,8 @@ The application has the following features:
 - Slideshow
 - Previous and Next button
 - Swipe left or right
-- Restricted swiping and clicking past the first or last question.
-- The background changes color on each page
+- Restricted swiping and clicking past the first or last question
+- The background changes color on each question
  ```
   
  ## Technologies Used
