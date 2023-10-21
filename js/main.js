@@ -119,8 +119,6 @@ const slideshowContainer = document.querySelector('.slideshow-container');
 const previousButton = document.getElementById('previousButton');
 const nextButton = document.getElementById('nextButton');
 
-
-
 phrasesArray.forEach((text, index) => {
     const slide = document.createElement('div');
     slide.classList.add('text-slide');
@@ -132,11 +130,6 @@ phrasesArray.forEach((text, index) => {
 if (document.querySelector('.active-slide').textContent === "Er morsomst") {
     previousButton.style.display = "none";
 }
-
-
-
-
-
 
 function updateButtons() {
     let activeSlide = document.querySelector('.active-slide');
@@ -154,30 +147,28 @@ function updateButtons() {
     }
 }
 
-
-
-
-
 function slideHandler(direction) {
     let activeSlide = document.querySelector('.active-slide');
+    let restartColor = document.querySelector('.game-restart');
     
-    // Check if it's the first slide and direction is right (i.e., going back)
+   
     if (activeSlide.textContent === phrasesArray[0] && direction === 'right') {
-        return;  // Exit the function without doing anything
+        return;  
     }
 
     if (direction === 'left') {
         let nextSlide = activeSlide.nextElementSibling || slideshowContainer.firstChild;
-        nextSlide.classList.add('from-right'); // New class for the starting position of the next slide
-        activeSlide.classList.add('move-out-left'); // Move out to the left
+        nextSlide.classList.add('from-right'); 
+        activeSlide.classList.add('move-out-left'); 
         
         setTimeout(() => {
             activeSlide.classList.remove('active-slide', 'move-out-left');
             nextSlide.classList.remove('from-right');
             nextSlide.classList.add('active-slide');
             document.body.style.backgroundColor = colorsArray[phrasesArray.indexOf(nextSlide.textContent) % colorsArray.length];
+            restartColor.style.color = colorsArray[phrasesArray.indexOf(nextSlide.textContent) % colorsArray.length];
             
-            // Handle the visibility of the arrows
+           
             if (nextSlide.textContent === phrasesArray[0]) {
                 previousButton.style.display = 'none';
             } else if (nextSlide === slideshowContainer.lastChild) {
@@ -186,7 +177,7 @@ function slideHandler(direction) {
                 previousButton.style.display = 'block';
                 nextButton.style.display = 'block';
             }
-        }, 200); // Match this with the transition time in CSS
+        }, 200); 
     } else {
         let prevSlide = activeSlide.previousElementSibling || slideshowContainer.lastChild;
         prevSlide.classList.add('from-left'); // New class for the starting position of the previous slide
@@ -198,7 +189,9 @@ function slideHandler(direction) {
             prevSlide.classList.add('active-slide');
             document.body.style.backgroundColor = colorsArray[phrasesArray.indexOf(prevSlide.textContent) % colorsArray.length];
             
-            // Handle the visibility of the arrows
+            restartColor.style.color = colorsArray[phrasesArray.indexOf(prevSlide.textContent) % colorsArray.length]; // Color update for the .game-restart button
+            
+            
             if (prevSlide.textContent === phrasesArray[0]) {
                 previousButton.style.display = 'none';
             } else if (prevSlide === slideshowContainer.lastChild) {
@@ -207,21 +200,13 @@ function slideHandler(direction) {
                 previousButton.style.display = 'block';
                 nextButton.style.display = 'block';
             }
-        }, 200); // Match this with the transition time in CSS
+        }, 200); 
     }
 }
 
-
-
-
-// Immediately hide the previousButton if the first slide is active
 updateButtons();
 
 
-
-
-
-// Swipe functionality for touch devices
 slideshowContainer.addEventListener('touchstart', (e) => {
     startX = e.touches[0].clientX;
 });
@@ -233,7 +218,6 @@ slideshowContainer.addEventListener('touchend', (e) => {
     else if (diffX < -50) slideHandler('right');
 });
 
-// Swipe functionality for desktop
 slideshowContainer.addEventListener('mousedown', (e) => {
     startX = e.clientX;
     e.preventDefault();
@@ -246,7 +230,6 @@ slideshowContainer.addEventListener('mouseup', (e) => {
     else if (diffX < -50) slideHandler('right');
 });
 
-// Button functionality
 nextButton.addEventListener('click', () => slideHandler('left'));
 previousButton.addEventListener('click', () => slideHandler('right'));
 

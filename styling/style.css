@@ -11,10 +11,9 @@ body {
 
 .slideshow-container {
 	width: 100vw;
-	height: 100vh;
+	height: 100dvh;
 	background-color: transparent;
 	padding: 20px;
-	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 	overflow: hidden;
 	position: relative;
 	display: flex;
@@ -88,4 +87,74 @@ body {
 	display: flex;
 	flex-flow: column;
 }
+
+.game-title {
+    color: white;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+    position: absolute;
+    left: 50%;               /* Move the left edge to the center of the parent */
+    top: 40%;                /* Adjust this to position it above the phrases */
+    transform: translate(-50%, -50%); /* This will ensure the title is perfectly centered */
+    font-size: 3rem;
+}
+
+.game-restart {
+    position: absolute;
+    left: 50%;               
+    top: 10%;                
+    transform: translateX(-50%);
+    
+  
+    padding: 12px 24px;     
+    font-size: 1.2rem;       
+    border: none;            
+    border-radius: 5px;      
+    background-color: #ffffff; 
+    color: black;          
+    cursor: pointer;         
+    transition: background-color 0.3s, transform 0.3s; 
+	 z-index: 100;
+}
+
+/* Hover Effect */
+    .game-restart:hover {
+        background-color: #ddd; 
+        transform: translateX(-50%) scale(1.05); 
+    }
+
+    
+    .game-restart:active {
+        background-color: #bbb; 
+    }
+
+
+
+	 .start-game-button {
+    /* Basic Styling */
+    padding: 15px 30px;           
+    font-size: 1.4rem;            
+    border: none;                 
+    border-radius: 8px;           
+    background-color: #ffffff;    
+    color: #ff2727;               
+    cursor: pointer;              
+    transition: background-color 0.3s, transform 0.3s; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+}
+
+
+
+    .start-game-button:hover {
+        background-color: #ddd;  
+        transform: scale(1.05);  
+    }
+
+   
+    .start-game-button:active {
+        background-color: #bbb;  
+        transform: scale(1);     
+    }
+
+
+
 
