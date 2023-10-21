@@ -8,3 +8,12 @@ button {
 	background: transparent;
 	border: none;
 }
+
+
+input,
+textarea,
+button,
+select,
+a {
+    -webkit-tap-highlight-color: transparent;
+}

@@ -50,7 +50,7 @@ body {
 	transform: translateY(-50%); /* Ensuring the buttons are perfectly centered */
 	color: white;
 	text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
-
+	-webkit-tap-highlight-color: transparent;
 }
 
 #previousButton { 
