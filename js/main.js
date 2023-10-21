@@ -161,42 +161,56 @@ function updateButtons() {
 function slideHandler(direction) {
     let activeSlide = document.querySelector('.active-slide');
     
-    if (direction === 'left') {
-        let nextSlide = activeSlide.nextElementSibling;
-        // Ensure the next element is a text-slide, not a button
-        while (nextSlide && !nextSlide.classList.contains('text-slide')) {
-            nextSlide = nextSlide.nextElementSibling;
-        }
-        if (!nextSlide) nextSlide = slideshowContainer.firstChild;
+    // Check if it's the first slide and direction is right (i.e., going back)
+    if (activeSlide.textContent === phrasesArray[0] && direction === 'right') {
+        return;  // Exit the function without doing anything
+    }
 
-        nextSlide.classList.add('from-right');
-        activeSlide.classList.add('move-out-left');
+    if (direction === 'left') {
+        let nextSlide = activeSlide.nextElementSibling || slideshowContainer.firstChild;
+        nextSlide.classList.add('from-right'); // New class for the starting position of the next slide
+        activeSlide.classList.add('move-out-left'); // Move out to the left
         
         setTimeout(() => {
             activeSlide.classList.remove('active-slide', 'move-out-left');
             nextSlide.classList.remove('from-right');
             nextSlide.classList.add('active-slide');
-            updateButtons();
-        }, 200);
+            document.body.style.backgroundColor = colorsArray[phrasesArray.indexOf(nextSlide.textContent) % colorsArray.length];
+            
+            // Handle the visibility of the arrows
+            if (nextSlide.textContent === phrasesArray[0]) {
+                previousButton.style.display = 'none';
+            } else if (nextSlide.textContent === phrasesArray[phrasesArray.length - 1]) {
+                nextButton.style.display = 'none';
+            } else {
+                previousButton.style.display = 'block';
+                nextButton.style.display = 'block';
+            }
+        }, 200); // Match this with the transition time in CSS
     } else {
-        let prevSlide = activeSlide.previousElementSibling;
-        // Ensure the previous element is a text-slide, not a button
-        while (prevSlide && !prevSlide.classList.contains('text-slide')) {
-            prevSlide = prevSlide.previousElementSibling;
-        }
-        if (!prevSlide) prevSlide = slideshowContainer.lastChild;
-
-        prevSlide.classList.add('from-left');
-        activeSlide.classList.add('move-out-right');
+        let prevSlide = activeSlide.previousElementSibling || slideshowContainer.lastChild;
+        prevSlide.classList.add('from-left'); // New class for the starting position of the previous slide
+        activeSlide.classList.add('move-out-right'); // Move out to the right
         
         setTimeout(() => {
             activeSlide.classList.remove('active-slide', 'move-out-right');
             prevSlide.classList.remove('from-left');
             prevSlide.classList.add('active-slide');
-            updateButtons();
-        }, 200);
+            document.body.style.backgroundColor = colorsArray[phrasesArray.indexOf(prevSlide.textContent) % colorsArray.length];
+            
+            // Handle the visibility of the arrows
+            if (prevSlide.textContent === phrasesArray[0]) {
+                previousButton.style.display = 'none';
+            } else if (prevSlide.textContent === phrasesArray[phrasesArray.length - 1]) {
+                nextButton.style.display = 'none';
+            } else {
+                previousButton.style.display = 'block';
+                nextButton.style.display = 'block';
+            }
+        }, 200); // Match this with the transition time in CSS
     }
 }
+
 
 
 // Immediately hide the previousButton if the first slide is active
