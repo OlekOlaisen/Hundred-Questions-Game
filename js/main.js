@@ -1,4 +1,6 @@
-const slideshowContainer = document.querySelector('.slideshow-container');
+const slideshowContainer = document.querySelector('slideshow-container');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
 
 const textArray = [
     "This is slide 1",
@@ -17,8 +19,26 @@ textArray.forEach((text, index) => {
     slideshowContainer.appendChild(slide);
 });
 
-// Swipe functionality
 let startX;
+
+function slideHandler(direction) {
+    let activeSlide = document.querySelector('.active-slide');
+    if (direction === 'left') {
+        let nextSlide = activeSlide.nextElementSibling;
+        if (nextSlide && nextSlide.classList.contains('text-slide')) {
+            activeSlide.classList.remove('active-slide');
+            nextSlide.classList.add('active-slide');
+        }
+    } else if (direction === 'right') {
+        let prevSlide = activeSlide.previousElementSibling;
+        if (prevSlide && prevSlide.classList.contains('text-slide')) {
+            activeSlide.classList.remove('active-slide');
+            prevSlide.classList.add('active-slide');
+        }
+    }
+}
+
+// Swipe functionality for touch devices
 slideshowContainer.addEventListener('touchstart', (e) => {
     startX = e.touches[0].clientX;
 });
@@ -26,19 +46,23 @@ slideshowContainer.addEventListener('touchstart', (e) => {
 slideshowContainer.addEventListener('touchend', (e) => {
     let endX = e.changedTouches[0].clientX;
     let diffX = startX - endX;
-
-    let activeSlide = document.querySelector('.active-slide');
-    if (diffX > 50) { // swipe left
-        let nextSlide = activeSlide.nextElementSibling;
-        if (nextSlide && nextSlide.classList.contains('text-slide')) {
-            activeSlide.classList.remove('active-slide');
-            nextSlide.classList.add('active-slide');
-        }
-    } else if (diffX < -50) { // swipe right
-        let prevSlide = activeSlide.previousElementSibling;
-        if (prevSlide && prevSlide.classList.contains('text-slide')) {
-            activeSlide.classList.remove('active-slide');
-            prevSlide.classList.add('active-slide');
-        }
-    }
+    if (diffX > 50) slideHandler('left');
+    else if (diffX < -50) slideHandler('right');
 });
+
+// Swipe functionality for desktop
+slideshowContainer.addEventListener('mousedown', (e) => {
+    startX = e.clientX;
+    e.preventDefault();
+});
+
+slideshowContainer.addEventListener('mouseup', (e) => {
+    let endX = e.clientX;
+    let diffX = startX - endX;
+    if (diffX > 50) slideHandler('left');
+    else if (diffX < -50) slideHandler('right');
+});
+
+// Button functionality
+nextBtn.addEventListener('click', () => slideHandler('left'));
+prevBtn.addEventListener('click', () => slideHandler('right'));
