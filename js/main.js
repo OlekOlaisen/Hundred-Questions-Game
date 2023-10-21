@@ -1,4 +1,4 @@
-const slideshowContainer = document.querySelector('slideshow-container');
+const slideshowContainer = document.querySelector('.slideshow-container');
 const prevBtn = document.getElementById('prevBtn');
 const nextBtn = document.getElementById('nextBtn');
 
