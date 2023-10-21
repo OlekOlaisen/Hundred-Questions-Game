@@ -125,59 +125,83 @@ phrasesArray.forEach((text, index) => {
     const slide = document.createElement('div');
     slide.classList.add('text-slide');
     slide.textContent = text;
-    // The modulus operator ensures we cycle through the colors if there are more slides than colors
     if (index === 0) slide.classList.add('active-slide');
     slideshowContainer.appendChild(slide);
 });
 
+if (document.querySelector('.active-slide').textContent === "Er morsomst") {
+    previousButton.style.display = "none";
+}
+
+
+
+
+
 
 function updateButtons() {
     let activeSlide = document.querySelector('.active-slide');
-    let activeIndex = Array.from(slideshowContainer.children).indexOf(activeSlide);
-
-    // If on the first slide, hide the previous button. Otherwise, show it.
-    if (activeIndex === 0) {
+    
+    if (activeSlide.textContent === phrasesArray[0]) {
         previousButton.style.display = 'none';
     } else {
         previousButton.style.display = 'block';
     }
+
+    if (activeSlide.textContent === phrasesArray[phrasesArray.length - 1]) {
+        nextButton.style.display = 'none';
+    } else {
+        nextButton.style.display = 'block';
+    }
 }
+
+
+
+
 
 function slideHandler(direction) {
     let activeSlide = document.querySelector('.active-slide');
     
-    // Prevent going back from the first slide
-    if (activeSlide.textContent === phrasesArray[0] && direction === 'right') {
-        return;
-    }
-    
     if (direction === 'left') {
-        let nextSlide = activeSlide.nextElementSibling || slideshowContainer.firstChild;
-        nextSlide.classList.add('from-right'); // New class for the starting position of the next slide
-        activeSlide.classList.add('move-out-left'); // Move out to the left
+        let nextSlide = activeSlide.nextElementSibling;
+        // Ensure the next element is a text-slide, not a button
+        while (nextSlide && !nextSlide.classList.contains('text-slide')) {
+            nextSlide = nextSlide.nextElementSibling;
+        }
+        if (!nextSlide) nextSlide = slideshowContainer.firstChild;
+
+        nextSlide.classList.add('from-right');
+        activeSlide.classList.add('move-out-left');
         
         setTimeout(() => {
             activeSlide.classList.remove('active-slide', 'move-out-left');
             nextSlide.classList.remove('from-right');
             nextSlide.classList.add('active-slide');
-            document.body.style.backgroundColor = colorsArray[phrasesArray.indexOf(nextSlide.textContent) % colorsArray.length];
-        }, 200); // Match this with the transition time in CSS
+            updateButtons();
+        }, 200);
     } else {
-        let prevSlide = activeSlide.previousElementSibling || slideshowContainer.lastChild;
-        prevSlide.classList.add('from-left'); // New class for the starting position of the previous slide
-        activeSlide.classList.add('move-out-right'); // Move out to the right
+        let prevSlide = activeSlide.previousElementSibling;
+        // Ensure the previous element is a text-slide, not a button
+        while (prevSlide && !prevSlide.classList.contains('text-slide')) {
+            prevSlide = prevSlide.previousElementSibling;
+        }
+        if (!prevSlide) prevSlide = slideshowContainer.lastChild;
+
+        prevSlide.classList.add('from-left');
+        activeSlide.classList.add('move-out-right');
         
         setTimeout(() => {
             activeSlide.classList.remove('active-slide', 'move-out-right');
             prevSlide.classList.remove('from-left');
             prevSlide.classList.add('active-slide');
-            document.body.style.backgroundColor = colorsArray[phrasesArray.indexOf(prevSlide.textContent) % colorsArray.length];
-        }, 200); // Match this with the transition time in CSS
+            updateButtons();
+        }, 200);
     }
-
-    // Update the visibility of the buttons at the end of the function
-    updateButtons();
 }
+
+
+// Immediately hide the previousButton if the first slide is active
+updateButtons();
+
 
 
 
