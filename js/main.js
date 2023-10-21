@@ -180,7 +180,7 @@ function slideHandler(direction) {
             // Handle the visibility of the arrows
             if (nextSlide.textContent === phrasesArray[0]) {
                 previousButton.style.display = 'none';
-            } else if (nextSlide.textContent === phrasesArray[phrasesArray.length - 1]) {
+            } else if (nextSlide === slideshowContainer.lastChild) {
                 nextButton.style.display = 'none';
             } else {
                 previousButton.style.display = 'block';
@@ -201,7 +201,7 @@ function slideHandler(direction) {
             // Handle the visibility of the arrows
             if (prevSlide.textContent === phrasesArray[0]) {
                 previousButton.style.display = 'none';
-            } else if (prevSlide.textContent === phrasesArray[phrasesArray.length - 1]) {
+            } else if (prevSlide === slideshowContainer.lastChild) {
                 nextButton.style.display = 'none';
             } else {
                 previousButton.style.display = 'block';
@@ -210,6 +210,7 @@ function slideHandler(direction) {
         }, 200); // Match this with the transition time in CSS
     }
 }
+
 
 
 
