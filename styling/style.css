@@ -1,20 +1,26 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css");
+
 body {
     font-family: Arial, sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 100dvh;
     background-color: #f4f4f4;
 }
 
 .slideshow-container {
-    width: 80%;
-    max-width: 600px;
+    width: 100dvw;
+	 height: 100dvh;
     background: #fff;
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     overflow: hidden;
     position: relative;
+	 display: flex;
+	 flex-flow: row;
+	 justify-content: center;
+	 align-items: center;
 }
 
 .slideshow-container .text-slide {
@@ -24,4 +30,14 @@ body {
 
 .slideshow-container .active-slide {
     display: block;
+}
+
+#previousButton {
+	position: absolute;
+	left: 0;
+}
+
+#nextButton {
+	position: absolute;
+	right: 0;
 }
