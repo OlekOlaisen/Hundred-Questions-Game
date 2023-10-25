@@ -205,6 +205,11 @@ function triggerConfetti() {
 function slideHandler(direction) {
     let activeSlide = document.querySelector('.active-slide');
     let nextSlide, prevSlide;
+
+
+    if (activeSlide.textContent === phrasesArray[0] && direction === 'right') {
+        return;  
+    }
     
     if (direction === 'left') {
         nextSlide = activeSlide.nextElementSibling || slideshowContainer.firstChild;
@@ -268,8 +273,13 @@ slideshowContainer.addEventListener('touchstart', (e) => {
 slideshowContainer.addEventListener('touchend', (e) => {
     let endX = e.changedTouches[0].clientX;
     let diffX = startX - endX;
-    if (diffX > 50) slideHandler('left');
-    else if (diffX < -50) slideHandler('right');
+    let activeSlide = document.querySelector('.active-slide');
+    
+    if (activeSlide.textContent !== phrasesArray[0] && diffX < -50) {
+        slideHandler('right');
+    } else if (diffX > 50) {
+        slideHandler('left');
+    }
 });
 
 slideshowContainer.addEventListener('mousedown', (e) => {
@@ -280,8 +290,13 @@ slideshowContainer.addEventListener('mousedown', (e) => {
 slideshowContainer.addEventListener('mouseup', (e) => {
     let endX = e.clientX;
     let diffX = startX - endX;
-    if (diffX > 50) slideHandler('left');
-    else if (diffX < -50) slideHandler('right');
+    let activeSlide = document.querySelector('.active-slide');
+    
+    if (activeSlide.textContent !== phrasesArray[0] && diffX < -50) {
+        slideHandler('right');
+    } else if (diffX > 50) {
+        slideHandler('left');
+    }
 });
 
 nextButton.addEventListener('click', () => slideHandler('left'));
