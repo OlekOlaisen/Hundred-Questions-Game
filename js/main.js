@@ -107,12 +107,12 @@ const colorsArray = [
     '#33FF57', // Vibrant Green
     '#3357FF', // Bright Blue
     '#FF33D1', // Pink
-    '#FFD133', // Golden Yellow
     '#33FFF3', // Aqua
     '#8A33FF', // Purple
     '#FF8A33', // Orange
     '#33FF8A', // Lime Green
-    '#5833FF'  // Indigo
+    '#5833FF',  // Indigo
+    '#FFD133' // Golden Yellow
 ];
 
 const slideshowContainer = document.querySelector('.slideshow-container');
@@ -122,13 +122,28 @@ const nextButton = document.getElementById('nextButton');
 phrasesArray.forEach((text, index) => {
     const slide = document.createElement('div');
     slide.classList.add('text-slide');
+    if (text === "SKÅL!") {
+        slide.classList.add('skal-slide');  // Add a distinct class for "SKÅL!"
+    }
     slide.textContent = text;
     if (index === 0) slide.classList.add('active-slide');
     slideshowContainer.appendChild(slide);
 });
 
+
 if (document.querySelector('.active-slide').textContent === "Er morsomst") {
     previousButton.style.display = "none";
+}
+
+function updateHVEMVisibility() {
+    const hvemTitle = document.querySelector('.game-title');
+    const activeSlide = document.querySelector('.active-slide');
+    
+    if (activeSlide.textContent.trim() === "SKÅL!") {
+        hvemTitle.style.display = 'none';
+    } else {
+        hvemTitle.style.display = 'block';
+    }
 }
 
 function updateButtons() {
@@ -140,24 +155,78 @@ function updateButtons() {
         previousButton.style.display = 'block';
     }
 
-    if (activeSlide.textContent === phrasesArray[phrasesArray.length - 1]) {
+    let isLastSkal = activeSlide.textContent.trim() === "SKÅL!" && !activeSlide.nextElementSibling;
+    if (isLastSkal) {
         nextButton.style.display = 'none';
     } else {
         nextButton.style.display = 'block';
     }
 }
 
+function triggerConfetti() {
+    var count = 200;
+    var defaults = {
+        origin: { y: 0.7 }
+    };
+
+    function fire(particleRatio, opts) {
+        confetti({
+            ...defaults,
+            ...opts,
+            particleCount: Math.floor(count * particleRatio)
+        });
+    }
+
+    fire(0.25, {
+        spread: 26,
+        startVelocity: 55,
+    });
+    fire(0.2, {
+        spread: 60,
+    });
+    fire(0.35, {
+        spread: 100,
+        decay: 0.91,
+        scalar: 0.8
+    });
+    fire(0.1, {
+        spread: 120,
+        startVelocity: 25,
+        decay: 0.92,
+        scalar: 1.2
+    });
+    fire(0.1, {
+        spread: 120,
+        startVelocity: 45,
+    });
+}
+
+
 function slideHandler(direction) {
     let activeSlide = document.querySelector('.active-slide');
-    let restartColor = document.querySelector('.game-restart');
+    let nextSlide, prevSlide;
     
-   
-    if (activeSlide.textContent === phrasesArray[0] && direction === 'right') {
-        return;  
+    if (direction === 'left') {
+        nextSlide = activeSlide.nextElementSibling || slideshowContainer.firstChild;
+    } else {
+        prevSlide = activeSlide.previousElementSibling || slideshowContainer.lastChild;
+    }
+
+    const slideToShow = direction === 'left' ? nextSlide : prevSlide;
+
+    // Check if the slide to be shown is "SKÅL!" and trigger confetti
+    if (slideToShow.textContent.trim() === "SKÅL!") {
+        triggerConfetti();
+    }
+
+    const hvemTitle = document.querySelector('.game-title');
+    if (slideToShow.textContent.trim() === "SKÅL!") {
+        hvemTitle.style.display = 'none';
+    } else {
+        hvemTitle.style.display = 'block';
     }
 
     if (direction === 'left') {
-        let nextSlide = activeSlide.nextElementSibling || slideshowContainer.firstChild;
         nextSlide.classList.add('from-right'); 
         activeSlide.classList.add('move-out-left'); 
         
@@ -166,43 +235,28 @@ function slideHandler(direction) {
             nextSlide.classList.remove('from-right');
             nextSlide.classList.add('active-slide');
             document.body.style.backgroundColor = colorsArray[phrasesArray.indexOf(nextSlide.textContent) % colorsArray.length];
+            let restartColor = document.querySelector('.game-restart');
             restartColor.style.color = colorsArray[phrasesArray.indexOf(nextSlide.textContent) % colorsArray.length];
             
-           
-            if (nextSlide.textContent === phrasesArray[0]) {
-                previousButton.style.display = 'none';
-            } else if (nextSlide === slideshowContainer.lastChild) {
-                nextButton.style.display = 'none';
-            } else {
-                previousButton.style.display = 'block';
-                nextButton.style.display = 'block';
-            }
+            updateButtons();
         }, 200); 
     } else {
-        let prevSlide = activeSlide.previousElementSibling || slideshowContainer.lastChild;
-        prevSlide.classList.add('from-left'); // New class for the starting position of the previous slide
-        activeSlide.classList.add('move-out-right'); // Move out to the right
+        prevSlide.classList.add('from-left');
+        activeSlide.classList.add('move-out-right');
         
         setTimeout(() => {
             activeSlide.classList.remove('active-slide', 'move-out-right');
             prevSlide.classList.remove('from-left');
             prevSlide.classList.add('active-slide');
             document.body.style.backgroundColor = colorsArray[phrasesArray.indexOf(prevSlide.textContent) % colorsArray.length];
-            
-            restartColor.style.color = colorsArray[phrasesArray.indexOf(prevSlide.textContent) % colorsArray.length]; // Color update for the .game-restart button
-            
-            
-            if (prevSlide.textContent === phrasesArray[0]) {
-                previousButton.style.display = 'none';
-            } else if (prevSlide === slideshowContainer.lastChild) {
-                nextButton.style.display = 'none';
-            } else {
-                previousButton.style.display = 'block';
-                nextButton.style.display = 'block';
-            }
-        }, 200); 
+            let restartColor = document.querySelector('.game-restart');
+            restartColor.style.color = colorsArray[phrasesArray.indexOf(prevSlide.textContent) % colorsArray.length];
+
+            updateButtons();
+        }, 200);
     }
 }
+
 
 updateButtons();
 

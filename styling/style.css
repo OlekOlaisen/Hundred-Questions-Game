@@ -21,6 +21,9 @@ body {
 	font-size: 3rem;
 }
 
+
+
+
 .start-game-button {
 	padding: 15px 30px;           
 	font-size: 1.4rem;            
@@ -72,6 +75,13 @@ body {
 	opacity: 1;
 	z-index: 1;
 	background-color: transparent;
+}
+
+.skal-slide {
+    font-size: 4em; 
+    color: white;      
+    font-weight: bold; 
+  
 }
 
 #previousButton, #nextButton {
