@@ -25,6 +25,7 @@ The application has the following features:
 - Press right or left arrow on desktop to switch slide
 - Restricted swiping and clicking past the first or last question
 - The background changes color on each question
+- Flying confetti on each "SKÅL!".
  ```
   
  ## Technologies Used
@@ -34,6 +35,7 @@ The following technologies were used to develop this application:
 - HTML
 - CSS
 - JavaScript
+- Canvas-confetti module
 ```
 ## Minimum Viable Product (MVP)
 
