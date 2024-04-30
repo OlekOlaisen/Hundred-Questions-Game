@@ -118,6 +118,41 @@ const colorsArray = [
 const slideshowContainer = document.querySelector('.slideshow-container');
 const previousButton = document.getElementById('previousButton');
 const nextButton = document.getElementById('nextButton');
+document.getElementById("modeToggle").addEventListener("change", function () {
+  if (this.checked) {
+    randomizeSlides();
+  } else {
+    orderSlides();
+  }
+  updateSlideShow();
+});
+
+function randomizeSlides() {
+  phrasesArray.sort(() => Math.random() - 0.5);
+}
+
+function orderSlides() {
+  phrasesArray.sort(
+    (a, b) => originalPhrasesArray.indexOf(a) - originalPhrasesArray.indexOf(b)
+  );
+}
+
+function updateSlideShow() {
+  const slides = document.querySelectorAll(".text-slide");
+  slides.forEach((slide) => slide.remove()); // Remove all current slides
+  phrasesArray.forEach((text, index) => {
+    // Re-add them in new order
+    const slide = document.createElement("div");
+    slide.classList.add("text-slide");
+    if (text === "SKÅL!") {
+      slide.classList.add("skal-slide");
+    }
+    slide.textContent = text;
+    if (index === 0) slide.classList.add("active-slide");
+    slideshowContainer.appendChild(slide);
+  });
+  updateButtons();
+}
 
 phrasesArray.forEach((text, index) => {
     const slide = document.createElement('div');
