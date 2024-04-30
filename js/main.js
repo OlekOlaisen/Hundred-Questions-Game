@@ -118,6 +118,7 @@ const colorsArray = [
 const slideshowContainer = document.querySelector('.slideshow-container');
 const previousButton = document.getElementById('previousButton');
 const nextButton = document.getElementById('nextButton');
+
 document.getElementById("modeToggle").addEventListener("change", function () {
   if (this.checked) {
     randomizeSlides();
@@ -131,10 +132,12 @@ function randomizeSlides() {
   phrasesArray.sort(() => Math.random() - 0.5);
 }
 
+
+
 function orderSlides() {
-  phrasesArray.sort(
-    (a, b) => originalPhrasesArray.indexOf(a) - originalPhrasesArray.indexOf(b)
-  );
+  // Deep copy to ensure no references are maintained
+  phrasesArray.length = 0; // Clear current array
+  originalPhrasesArray.forEach((item) => phrasesArray.push(item)); // Push each item back to it
 }
 
 function updateSlideShow() {
@@ -164,6 +167,8 @@ phrasesArray.forEach((text, index) => {
     if (index === 0) slide.classList.add('active-slide');
     slideshowContainer.appendChild(slide);
 });
+
+const originalPhrasesArray = [...phrasesArray];
 
 
 if (document.querySelector('.active-slide').textContent === "Er morsomst") {
